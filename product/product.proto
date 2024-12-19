@@ -67,7 +67,7 @@ message DeleteProductResponse {
 }
 
 message ListProductsRequest {
-    bool include_deleted = 4; 
+    bool include_deleted = 1; 
 }
 
 message ListProductsResponse {
