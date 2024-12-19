@@ -1,4 +1,4 @@
-module e-protofiles
+module github.com/faris-muhammed/e-protofiles
 
 go 1.22.3
 
