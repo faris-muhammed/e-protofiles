@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "../adminLogin";
+option go_package = "github.com/faris-muhammed/e-protofiles/adminlogin";
 
 package admin;
 

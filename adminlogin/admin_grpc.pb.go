@@ -4,7 +4,7 @@
 // - protoc             v5.28.3
 // source: admin.proto
 
-package adminLogin
+package adminlogin
 
 import (
 	context "context"

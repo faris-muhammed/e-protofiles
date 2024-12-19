@@ -4,7 +4,7 @@
 // - protoc             v5.28.3
 // source: category.proto
 
-package seller
+package category
 
 import (
 	context "context"

@@ -4,7 +4,7 @@
 // - protoc             v5.28.3
 // source: seller.proto
 
-package sellerLogin
+package sellerlogin
 
 import (
 	context "context"

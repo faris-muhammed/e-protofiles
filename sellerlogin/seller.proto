@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "../sellerLogin";
+option go_package = "github.com/faris-muhammed/e-protofiles/sellerlogin";
 
 package seller;
 
