@@ -17,7 +17,7 @@ message Product {
     string name = 2;            // Name of the product
     double price = 3;           // Price of the product
     int32 stock = 4;
-    string category_id = 5;     // Category of the product
+    int32 category_id = 5;     // Category of the product
     int32 seller_id = 6;        // ID of the seller who owns the product
     bool is_deleted = 7;        // Soft delete flag
     string created_at = 8;      // Timestamp when the product was created
@@ -27,8 +27,9 @@ message Product {
 message CreateProductRequest {
     string name = 1;
     double price = 2;
-    string category_id = 3;
-    int32 seller_id = 4;      
+    int32 stock = 3 ;
+    int32 category_id = 4;
+    int32 seller_id = 5;      
 }
 
 message CreateProductResponse {
