@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CategoryService_AddCategory_FullMethodName    = "/admin.CategoryService/AddCategory"
-	CategoryService_EditCategory_FullMethodName   = "/admin.CategoryService/EditCategory"
-	CategoryService_DeleteCategory_FullMethodName = "/admin.CategoryService/DeleteCategory"
-	CategoryService_GetCategories_FullMethodName  = "/admin.CategoryService/GetCategories"
+	CategoryService_AddCategory_FullMethodName    = "/category.CategoryService/AddCategory"
+	CategoryService_EditCategory_FullMethodName   = "/category.CategoryService/EditCategory"
+	CategoryService_DeleteCategory_FullMethodName = "/category.CategoryService/DeleteCategory"
+	CategoryService_GetCategories_FullMethodName  = "/category.CategoryService/GetCategories"
 )
 
 // CategoryServiceClient is the client API for CategoryService service.
@@ -210,7 +210,7 @@ func _CategoryService_GetCategories_Handler(srv interface{}, ctx context.Context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CategoryService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "admin.CategoryService",
+	ServiceName: "category.CategoryService",
 	HandlerType: (*CategoryServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

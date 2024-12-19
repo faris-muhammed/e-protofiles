@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "github.com/faris-muhammed/e-protofiles/category";
 
-package admin;
+package category;
 
 service CategoryService {
 	rpc AddCategory(AddCategoryRequest) returns (CategoryResponse);
