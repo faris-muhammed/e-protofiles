@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option go_package = "../category";
+
+package admin;
+
+service CategoryService {
+	rpc AddCategory(AddCategoryRequest) returns (CategoryResponse);
+    rpc EditCategory(EditCategoryRequest) returns (CategoryResponse);
+    rpc DeleteCategory(DeleteCategoryRequest) returns (CategoryResponse);
+    rpc GetCategories(Empty) returns (CategoryListResponse);
+}
+
+message AddCategoryRequest {
+    string name = 1;
+    string description = 2;
+}
+
+message EditCategoryRequest {
+    int32 categoryId = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message DeleteCategoryRequest {
+    int32 categoryId = 1;
+}
+
+message Category {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message CategoryResponse {
+    string message = 1;
+}
+
+message CategoryListResponse {
+    repeated Category categories = 1;
+}
+
+message Empty {}
