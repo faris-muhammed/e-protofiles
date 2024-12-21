@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "github.com/faris-muhammed/e-protofiles/userlogin";
+
+package user;
+
+service LoginService {
+  rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+message LoginRequest {
+  string email = 1;        
+  string password = 2;    
+}
+
+message LoginResponse {
+  bool success = 1;        
+  string message = 2;       
+  string token = 3;         
+}
