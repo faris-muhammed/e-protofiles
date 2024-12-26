@@ -23,7 +23,7 @@ message SignupResponse {
 }
 
 message VerifyOTPRequest {
-  string mobile = 1;
+  string email = 1;
   string otp = 2;
 }
 
