@@ -19,13 +19,17 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	LoginService_Login_FullMethodName = "/user.LoginService/Login"
+	LoginService_Signup_FullMethodName    = "/user.LoginService/Signup"
+	LoginService_VerifyOTP_FullMethodName = "/user.LoginService/VerifyOTP"
+	LoginService_Login_FullMethodName     = "/user.LoginService/Login"
 )
 
 // LoginServiceClient is the client API for LoginService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LoginServiceClient interface {
+	Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error)
+	VerifyOTP(ctx context.Context, in *VerifyOTPRequest, opts ...grpc.CallOption) (*VerifyOTPResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
@@ -35,6 +39,26 @@ type loginServiceClient struct {
 
 func NewLoginServiceClient(cc grpc.ClientConnInterface) LoginServiceClient {
 	return &loginServiceClient{cc}
+}
+
+func (c *loginServiceClient) Signup(ctx context.Context, in *SignupRequest, opts ...grpc.CallOption) (*SignupResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SignupResponse)
+	err := c.cc.Invoke(ctx, LoginService_Signup_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginServiceClient) VerifyOTP(ctx context.Context, in *VerifyOTPRequest, opts ...grpc.CallOption) (*VerifyOTPResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(VerifyOTPResponse)
+	err := c.cc.Invoke(ctx, LoginService_VerifyOTP_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *loginServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
@@ -51,6 +75,8 @@ func (c *loginServiceClient) Login(ctx context.Context, in *LoginRequest, opts .
 // All implementations must embed UnimplementedLoginServiceServer
 // for forward compatibility.
 type LoginServiceServer interface {
+	Signup(context.Context, *SignupRequest) (*SignupResponse, error)
+	VerifyOTP(context.Context, *VerifyOTPRequest) (*VerifyOTPResponse, error)
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	mustEmbedUnimplementedLoginServiceServer()
 }
@@ -62,6 +88,12 @@ type LoginServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedLoginServiceServer struct{}
 
+func (UnimplementedLoginServiceServer) Signup(context.Context, *SignupRequest) (*SignupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Signup not implemented")
+}
+func (UnimplementedLoginServiceServer) VerifyOTP(context.Context, *VerifyOTPRequest) (*VerifyOTPResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyOTP not implemented")
+}
 func (UnimplementedLoginServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
@@ -84,6 +116,42 @@ func RegisterLoginServiceServer(s grpc.ServiceRegistrar, srv LoginServiceServer)
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&LoginService_ServiceDesc, srv)
+}
+
+func _LoginService_Signup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SignupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginServiceServer).Signup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginService_Signup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginServiceServer).Signup(ctx, req.(*SignupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginService_VerifyOTP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyOTPRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginServiceServer).VerifyOTP(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LoginService_VerifyOTP_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginServiceServer).VerifyOTP(ctx, req.(*VerifyOTPRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _LoginService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -111,6 +179,14 @@ var LoginService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "user.LoginService",
 	HandlerType: (*LoginServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Signup",
+			Handler:    _LoginService_Signup_Handler,
+		},
+		{
+			MethodName: "VerifyOTP",
+			Handler:    _LoginService_VerifyOTP_Handler,
+		},
 		{
 			MethodName: "Login",
 			Handler:    _LoginService_Login_Handler,

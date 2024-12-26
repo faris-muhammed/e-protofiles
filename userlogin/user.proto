@@ -5,7 +5,29 @@ option go_package = "github.com/faris-muhammed/e-protofiles/userlogin";
 package user;
 
 service LoginService {
+  rpc Signup(SignupRequest) returns (SignupResponse);
+  rpc VerifyOTP(VerifyOTPRequest) returns (VerifyOTPResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+message SignupRequest {
+  string name = 1;
+  string email = 2;
+  string mobile = 3;
+  string password = 4;
+}
+
+message SignupResponse {
+  string message = 1;
+}
+
+message VerifyOTPRequest {
+  string mobile = 1;
+  string otp = 2;
+}
+
+message VerifyOTPResponse {
+  string message = 1;
 }
 
 message LoginRequest {
@@ -13,8 +35,7 @@ message LoginRequest {
   string password = 2;    
 }
 
-message LoginResponse {
-  bool success = 1;        
-  string message = 2;       
-  string token = 3;         
+message LoginResponse {      
+  string message = 1;       
+  string token = 2;         
 }
