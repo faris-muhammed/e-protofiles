@@ -16,10 +16,9 @@ message CartItem {
     uint64 id = 1;
     uint64 user_id = 2;
     uint64 product_id = 3;
-    string product_name = 4;
-    uint32 quantity = 5;
-    double price = 6;
-    double sub_total = 7;
+    uint32 quantity = 4;
+    double sub_total = 5;
+    Product product = 6;
 }
 
 message Product {
