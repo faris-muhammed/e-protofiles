@@ -17,17 +17,17 @@ message AddCategoryRequest {
 }
 
 message EditCategoryRequest {
-    int32 categoryId = 1;
+    uint64 categoryId = 1;
     string name = 2;
     string description = 3;
 }
 
 message DeleteCategoryRequest {
-    int32 categoryId = 1;
+    uint64 categoryId = 1;
 }
 
 message Category {
-    int32 id = 1;
+    uint64 id = 1;
     string name = 2;
     string description = 3;
 }

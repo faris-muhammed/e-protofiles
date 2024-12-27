@@ -13,12 +13,12 @@ service ProductService {
 }
 
 message Product {
-    int32 id = 1;               // Unique identifier for the product
+    uint64 id = 1;               // Unique identifier for the product
     string name = 2;            // Name of the product
     double price = 3;           // Price of the product
-    int32 stock = 4;
-    int32 category_id = 5;     // Category of the product
-    int32 seller_id = 6;        // ID of the seller who owns the product
+    uint64 stock = 4;
+    uint64 category_id = 5;     // Category of the product
+    uint64 seller_id = 6;        // ID of the seller who owns the product
     bool is_deleted = 7;        // Soft delete flag
     string created_at = 8;      // Timestamp when the product was created
     string updated_at = 9;      // Timestamp when the product was last updated
@@ -27,9 +27,9 @@ message Product {
 message CreateProductRequest {
     string name = 1;
     double price = 2;
-    int32 stock = 3 ;
-    int32 category_id = 4;
-    int32 seller_id = 5;      
+    uint64 stock = 3 ;
+    uint64 category_id = 4;
+    uint64 seller_id = 5;      
 }
 
 message CreateProductResponse {
@@ -38,7 +38,7 @@ message CreateProductResponse {
 }
 
 message GetProductRequest {
-    int32 id = 1;
+    uint64 product_id = 1;
 }
 
 message GetProductResponse {
@@ -46,11 +46,11 @@ message GetProductResponse {
 }
 
 message UpdateProductRequest {
-    int32 id = 1;             // ID of the product to update
+    uint64 id = 1;             // ID of the product to update
     string name = 2;          
     double price = 3;         
-    int32 stock = 4;          
-    string category = 5;     
+    uint64 stock = 4;          
+    uint64 category_id = 5;     
 }
 
 message UpdateProductResponse {
@@ -59,7 +59,7 @@ message UpdateProductResponse {
 }
 
 message DeleteProductRequest {
-    int32 id = 1;           
+    uint64 product_id = 1;           
 }
 
 message DeleteProductResponse {
@@ -67,7 +67,7 @@ message DeleteProductResponse {
 }
 
 message ListProductsRequest {
-    bool include_deleted = 1; 
+    uint64 seller_id = 1;  
 }
 
 message ListProductsResponse {
