@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+option go_package = "github.com/faris-muhammed/e-protofiles/address";
+
+package address;
+
+service UserService {
+  rpc AddUserAddress(AddUserAddressRequest) returns (AddUserAddressResponse);
+  rpc GetUserAddresses(GetUserAddressesRequest) returns (GetUserAddressesResponse);
+  rpc EditUserAddress(EditUserAddressRequest) returns (EditUserAddressResponse);
+  rpc RemoveUserAddress(RemoveUserAddressRequest) returns (RemoveUserAddressResponse);
+}
+
+message AddUserAddressRequest {
+  uint64 user_id = 1;        
+  string street = 2;         
+  string city = 3;           
+  string state = 4;          
+  string postal_code = 5;    
+  string country = 6;        
+}
+
+message AddUserAddressResponse {
+  string message = 1;        
+  uint64 address_id = 2;     
+}
+
+message GetUserAddressesRequest {
+  uint64 user_id = 1;        
+}
+
+message GetUserAddressesResponse {
+  repeated Address addresses = 1;
+}
+
+message EditUserAddressRequest {
+  uint64 address_id = 1;     
+  uint64 user_id = 2;        
+  string street = 3;         
+  string city = 4;           
+  string state = 5;          
+  string postal_code = 6;    
+  string country = 7;        
+}
+
+message EditUserAddressResponse {
+  string message = 1;        
+}
+
+message RemoveUserAddressRequest {
+  uint64 address_id = 1;     
+  uint64 user_id = 2;        
+}
+
+message RemoveUserAddressResponse {
+  string message = 1;        
+}
+
+message Address {
+  uint64 address_id = 1;     
+  string street = 2;         
+  string city = 3;           
+  string state = 4;          
+  string postal_code = 5;    
+  string country = 6;        
+}
