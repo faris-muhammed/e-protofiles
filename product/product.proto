@@ -9,7 +9,8 @@ service ProductService {
     rpc GetProduct(GetProductRequest) returns (GetProductResponse);
     rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);
     rpc ModifyProductStatus (ModifyProductStatusRequest) returns (ModifyProductStatusResponse);
-    rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+    rpc ListProductsSeller(ListProductsSellerRequest) returns (ListProductsSellerResponse);
+    rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
 }
 
 message Product {
@@ -67,10 +68,16 @@ message ModifyProductStatusResponse {
   string message = 1;
 }
 
-message ListProductsRequest {
+message ListProductsSellerRequest {
     uint64 seller_id = 1;  
 }
 
-message ListProductsResponse {
+message ListProductsSellerResponse {
     repeated Product products = 1;
+}
+message ListProductsRequest {}
+
+message ListProductsResponse {
+    string message = 1;
+    repeated Product products = 2;
 }

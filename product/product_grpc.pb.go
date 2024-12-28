@@ -23,6 +23,7 @@ const (
 	ProductService_GetProduct_FullMethodName          = "/product.ProductService/GetProduct"
 	ProductService_UpdateProduct_FullMethodName       = "/product.ProductService/UpdateProduct"
 	ProductService_ModifyProductStatus_FullMethodName = "/product.ProductService/ModifyProductStatus"
+	ProductService_ListProductsSeller_FullMethodName  = "/product.ProductService/ListProductsSeller"
 	ProductService_ListProducts_FullMethodName        = "/product.ProductService/ListProducts"
 )
 
@@ -34,6 +35,7 @@ type ProductServiceClient interface {
 	GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error)
 	UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*UpdateProductResponse, error)
 	ModifyProductStatus(ctx context.Context, in *ModifyProductStatusRequest, opts ...grpc.CallOption) (*ModifyProductStatusResponse, error)
+	ListProductsSeller(ctx context.Context, in *ListProductsSellerRequest, opts ...grpc.CallOption) (*ListProductsSellerResponse, error)
 	ListProducts(ctx context.Context, in *ListProductsRequest, opts ...grpc.CallOption) (*ListProductsResponse, error)
 }
 
@@ -85,6 +87,16 @@ func (c *productServiceClient) ModifyProductStatus(ctx context.Context, in *Modi
 	return out, nil
 }
 
+func (c *productServiceClient) ListProductsSeller(ctx context.Context, in *ListProductsSellerRequest, opts ...grpc.CallOption) (*ListProductsSellerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListProductsSellerResponse)
+	err := c.cc.Invoke(ctx, ProductService_ListProductsSeller_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *productServiceClient) ListProducts(ctx context.Context, in *ListProductsRequest, opts ...grpc.CallOption) (*ListProductsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListProductsResponse)
@@ -103,6 +115,7 @@ type ProductServiceServer interface {
 	GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error)
 	UpdateProduct(context.Context, *UpdateProductRequest) (*UpdateProductResponse, error)
 	ModifyProductStatus(context.Context, *ModifyProductStatusRequest) (*ModifyProductStatusResponse, error)
+	ListProductsSeller(context.Context, *ListProductsSellerRequest) (*ListProductsSellerResponse, error)
 	ListProducts(context.Context, *ListProductsRequest) (*ListProductsResponse, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
@@ -125,6 +138,9 @@ func (UnimplementedProductServiceServer) UpdateProduct(context.Context, *UpdateP
 }
 func (UnimplementedProductServiceServer) ModifyProductStatus(context.Context, *ModifyProductStatusRequest) (*ModifyProductStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ModifyProductStatus not implemented")
+}
+func (UnimplementedProductServiceServer) ListProductsSeller(context.Context, *ListProductsSellerRequest) (*ListProductsSellerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProductsSeller not implemented")
 }
 func (UnimplementedProductServiceServer) ListProducts(context.Context, *ListProductsRequest) (*ListProductsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListProducts not implemented")
@@ -222,6 +238,24 @@ func _ProductService_ModifyProductStatus_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductService_ListProductsSeller_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProductsSellerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServiceServer).ListProductsSeller(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductService_ListProductsSeller_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServiceServer).ListProductsSeller(ctx, req.(*ListProductsSellerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProductService_ListProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListProductsRequest)
 	if err := dec(in); err != nil {
@@ -262,6 +296,10 @@ var ProductService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ModifyProductStatus",
 			Handler:    _ProductService_ModifyProductStatus_Handler,
+		},
+		{
+			MethodName: "ListProductsSeller",
+			Handler:    _ProductService_ListProductsSeller_Handler,
 		},
 		{
 			MethodName: "ListProducts",
